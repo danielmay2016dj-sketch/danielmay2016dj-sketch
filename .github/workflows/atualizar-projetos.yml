@@ -1,0 +1,106 @@
+name: Atualizar projetos do perfil
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-projects:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+
+      - name: Atualizar lista de repositórios públicos
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: danielmay2016dj-sketch
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          username = os.environ["GITHUB_USERNAME"]
+          token = os.environ["GH_TOKEN"]
+          profile_repo = username.lower()
+          url = (
+              "https://api.github.com/users/"
+              + urllib.parse.quote(username, safe="")
+              + "/repos?type=owner&sort=created&direction=desc&per_page=100"
+          )
+          request = urllib.request.Request(
+              url,
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {token}",
+                  "X-GitHub-Api-Version": "2022-11-28",
+                  "User-Agent": "profile-readme-project-updater",
+              },
+          )
+
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  repos = json.load(response)
+          except urllib.error.HTTPError as error:
+              raise SystemExit(f"A API do GitHub retornou HTTP {error.code}.")
+
+          repos = [
+              repo for repo in repos
+              if not repo.get("private")
+              and not repo.get("fork")
+              and repo["name"].lower() != profile_repo
+          ][:8]
+
+          if repos:
+              lines = ["| Repositório | Sobre | Linguagem | ⭐ |", "|---|---|---:|---:|"]
+              for repo in repos:
+                  name = repo["name"].replace("|", "\\|").replace("[", "\\[").replace("]", "\\]")
+                  description = (repo.get("description") or "Sem descrição por enquanto")
+                  description = re.sub(r"\s+", " ", description).strip()
+                  description = description.replace("|", "\\|").replace("[", "\\[").replace("]", "\\]")
+                  language = (repo.get("language") or "—").replace("|", "\\|")
+                  lines.append(
+                      f"| [**{name}**]({repo['html_url']}) | {description} | {language} | {repo.get('stargazers_count', 0)} |"
+                  )
+              project_list = "\n".join(lines)
+          else:
+              project_list = "_Ainda não há repositórios públicos próprios para listar. Quando você criar um, ele aparecerá aqui na próxima atualização._"
+
+          readme = Path("README.md")
+          content = readme.read_text(encoding="utf-8")
+          updated, count = re.subn(
+              r"(?<=<!-- PROJECTS:START -->).*?(?=<!-- PROJECTS:END -->)",
+              lambda _: "\n" + project_list + "\n",
+              content,
+              count=1,
+              flags=re.DOTALL,
+          )
+          if count != 1:
+              raise SystemExit("Não encontrei os marcadores PROJECTS:START/END no README.md.")
+          readme.write_text(updated, encoding="utf-8")
+          PY
+
+      - name: Salvar alterações no README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "O README já está atualizado."
+          else
+            git commit -m "Atualiza projetos do perfil automaticamente"
+            git push
+          fi
