@@ -48,7 +48,7 @@ Para ativar, crie um repositório público chamado danielmay2016dj-sketch
 Meus repositórios públicos mais recentes aparecem automaticamente aqui:
 
 <!-- PROJECTS:START -->
-_A lista será preenchida automaticamente pela GitHub Action. A primeira atualização ocorre quando você publicar os arquivos no GitHub._
+_Ainda não há repositórios públicos próprios para listar. Quando você criar um, ele aparecerá aqui na próxima atualização._
 <!-- PROJECTS:END -->
 
 ## 📫 Contato
