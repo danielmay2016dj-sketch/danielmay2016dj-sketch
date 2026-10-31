@@ -45,12 +45,10 @@ Para ativar, crie um repositório público chamado danielmay2016dj-sketch
 
 ## 🚀 Projetos
 
-Meus repositórios públicos mais recentes aparecem automaticamente aqui:
+Repositórios públicos
 
 <!-- PROJECTS:START -->
-| Repositório | Sobre | Linguagem | ⭐ |
-|---|---|---:|---:|
-| [**projeto-ciberseguranca-etica**](https://github.com/danielmay2016dj-sketch/projeto-ciberseguranca-etica) | Sem descrição por enquanto | Python | 0 |
+_A lista será preenchida automaticamente pela GitHub Action. A primeira atualização ocorre quando você publicar os arquivos no GitHub._
 <!-- PROJECTS:END -->
 
 ## 📫 Contato
