@@ -35,8 +35,8 @@ Para ativar, crie um repositório público chamado danielmay2016dj-sketch
 ## 📊 Meu GitHub
 
 <div align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=danielmay2016dj-sketch&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true" alt="Estatísticas do GitHub" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=danielmay2016dj-sketch&layout=compact&theme=tokyonight&hide_border=true" alt="Linguagens mais usadas" />
+  <img height="165" src="./profile/stats.svg" alt="Estatísticas do GitHub" />
+  <img height="165" src="./profile/top-langs.svg" alt="Linguagens mais usadas" />
 </div>
 
 <div align="center">
@@ -44,8 +44,6 @@ Para ativar, crie um repositório público chamado danielmay2016dj-sketch
 </div>
 
 ## 🚀 Projetos
-
-Repositórios públicos
 
 <!-- PROJECTS:START -->
 | Repositório | Sobre | Linguagem | ⭐ |
