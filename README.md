@@ -48,7 +48,9 @@ Para ativar, crie um repositório público chamado danielmay2016dj-sketch
 Meus repositórios públicos mais recentes aparecem automaticamente aqui:
 
 <!-- PROJECTS:START -->
-_Ainda não há repositórios públicos próprios para listar. Quando você criar um, ele aparecerá aqui na próxima atualização._
+| Repositório | Sobre | Linguagem | ⭐ |
+|---|---|---:|---:|
+| [**projeto-ciberseguranca-etica**](https://github.com/danielmay2016dj-sketch/projeto-ciberseguranca-etica) | Sem descrição por enquanto | Python | 0 |
 <!-- PROJECTS:END -->
 
 ## 📫 Contato
